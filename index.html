@@ -3,300 +3,607 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ 민서 절대 자지 마! (Sleep Ban Center) ⚡</title>
+    <title>프로지각러 - Pro-Latecomer Escape App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --bg-color: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --text-color: #ffffff;
-            --accent-color: #ff4757;
-            --warning-color: #ffa500;
-            --success-color: #2ed573;
-        }
-
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            /* 밝고 비비드한 파스텔 단색 테마 */
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            transition: background-color 0.1s;
         }
 
-        .container {
-            max-width: 600px;
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.18);
+        }
+
+        /* REAL 3D GLASS BUTTON - 입체감이 살아있는 투명 유리 버튼 */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            /* 선명한 유리 외곽 빛반사 테두리 */
+            border: 1.8px solid rgba(255, 255, 255, 0.85);
+            /* 상단 유리의 상단 빛받음 & 외각 그림자 */
+            box-shadow: 
+                inset 0 2px 2px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px 0 rgba(0, 0, 0, 0.1),
+                0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 유리의 상단 반사광 은은한 굴절 효과 */
+        .glass-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            text-align: center;
+            height: 45%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.05));
+            pointer-events: none;
+            border-radius: inherit;
         }
 
-        h1 {
-            color: var(--accent-color);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.38);
+            border-color: rgba(255, 255, 255, 1);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 
+                inset 0 3px 4px 0 rgba(255, 255, 255, 1),
+                inset 0 -2px 6px 0 rgba(0, 0, 0, 0.15),
+                0 12px 28px 0 rgba(0, 0, 0, 0.22);
+            color: #ffffff;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        .glass-btn:active {
+            transform: translateY(1px) scale(0.98);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                inset 0 2px 6px 0 rgba(0, 0, 0, 0.3),
+                0 4px 10px 0 rgba(0, 0, 0, 0.1);
         }
 
-        button {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s;
-            margin: 5px;
+        /* ACCENT GLASS BUTTON (컬러감 있는 투명 유리 버튼) */
+        .glass-btn-accent {
+            background: rgba(239, 68, 68, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.8px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                inset 0 2px 3px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px 0 rgba(185, 28, 28, 0.3),
+                0 8px 24px 0 rgba(225, 29, 72, 0.3);
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        button:hover {
-            transform: scale(1.05);
-            background-color: #ff6b81;
+        .glass-btn-accent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05));
+            pointer-events: none;
+            border-radius: inherit;
         }
 
-        button:active {
-            transform: scale(0.95);
+        .glass-btn-accent:hover {
+            background: rgba(239, 68, 68, 0.55);
+            border-color: #ffffff;
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 
+                inset 0 3px 5px 0 rgba(255, 255, 255, 1),
+                0 12px 30px 0 rgba(225, 29, 72, 0.45);
         }
 
-        .alert-mode {
-            animation: flash 0.2s infinite;
+        .glass-btn-accent:active {
+            transform: translateY(1px) scale(0.98);
+            background: rgba(239, 68, 68, 0.3);
         }
 
-        @keyframes flash {
-            0% { background-color: #ff0000; }
-            50% { background-color: #000000; }
-            100% { background-color: #ff0000; }
+        /* Glass Input */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
         }
 
-        .timer-display {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--warning-color);
-            font-family: monospace;
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.65);
         }
 
-        input[type="number"], input[type="text"] {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 1px solid #555;
-            background: #444;
-            color: #fff;
-            width: 60%;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .quote {
-            font-style: italic;
-            color: #aaa;
-            margin-top: 10px;
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffffff;
+            outline: none;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(255, 255, 255, 0.4);
         }
     </style>
 </head>
-<body>
+<body class="font-sans text-white p-4 sm:p-6 md:p-10">
 
-    <div class="container">
-        <h1>🚨 민서 전용 잠 깨기 시스템 🚨</h1>
-        <p>민서야, 지금 자면 꿈을 꾸지만, 안 자면 꿈을 이룬다!</p>
+    <div class="max-w-3xl mx-auto space-y-6">
 
-        <!-- 1. 졸음 방지 긴급 버튼 -->
-        <div class="card">
-            <h2>📢 미친 듯이 졸릴 때 누르는 버튼</h2>
-            <p>소리와 함께 화면이 번쩍거립니다!</p>
-            <button onclick="triggerEmergency()">🚨 사이렌 작동 (잠 깨기!)</button>
-            <button onclick="stopEmergency()" style="background-color: #70a1ff;">🛑 사이렌 끄기</button>
+        <!-- HEADER -->
+        <header class="glass-panel rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+            <div class="inline-flex items-center space-x-2 bg-white/25 px-4 py-1.5 rounded-full text-xs font-bold text-white border border-white/70 shadow-inner mb-3">
+                <i class="ph-bold ph-alarm"></i>
+                <span>지각 완전 퇴치 프로젝트</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white mb-2 drop-shadow-md">
+                프로지각러
+            </h1>
+            <p class="text-xs sm:text-sm text-white/80 max-w-md mx-auto font-medium leading-relaxed">
+                진짜 유리 질감의 유리 버튼으로 직관적이고 빠르게! 기상 시각과 버스 도착 시간을 완벽 계산해 드립니다.
+            </p>
+        </header>
+
+        <!-- 1. TOP SECTION: REVERSE WAKE UP CALCULATOR -->
+        <section class="glass-panel rounded-3xl p-6 sm:p-8 space-y-5">
+            <div class="flex items-center space-x-3 border-b border-white/30 pb-4">
+                <div class="w-11 h-11 rounded-2xl bg-white/30 border border-white/80 flex items-center justify-center text-amber-300 shadow-lg text-2xl">
+                    <i class="ph-bold ph-alarm-clock"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg sm:text-xl font-black text-white drop-shadow">1. 역산 기상 시간 계산기</h2>
+                    <p class="text-xs text-white/75 font-medium">목표 도착 시간에서 이동/준비 시간을 뺀 기상 시각을 알려드립니다.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">도착 목표 시간</label>
+                    <input type="time" id="target-time" value="09:00" onchange="calculateTimes()" class="glass-input w-full px-4 py-3 rounded-2xl text-base">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">총 이동 소요시간 (분)</label>
+                    <input type="number" id="travel-time" value="45" min="0" oninput="calculateTimes()" class="glass-input w-full px-4 py-3 rounded-2xl text-base">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">외출 준비 시간 (분)</label>
+                    <input type="number" id="prep-time" value="30" min="0" oninput="calculateTimes()" class="glass-input w-full px-4 py-3 rounded-2xl text-base">
+                </div>
+            </div>
+
+            <!-- RESULT DISPLAY GLASS BOX -->
+            <div class="bg-black/15 border border-white/50 rounded-2xl p-5 grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white/70 mb-0.5">집에서 나서야 할 시간</span>
+                    <span id="leave-time-display" class="text-2xl sm:text-3xl font-black text-amber-300 drop-shadow">08:15</span>
+                </div>
+                <div class="flex flex-col sm:items-end border-t sm:border-t-0 sm:border-l border-white/30 pt-3 sm:pt-0 sm:pl-4">
+                    <span class="text-xs font-bold text-white/70 mb-0.5">추천 기상 시간</span>
+                    <span id="wakeup-time-display" class="text-3xl sm:text-4xl font-black text-rose-300 drop-shadow">07:45</span>
+                </div>
+            </div>
+
+            <button onclick="syncAlarmWithCalculatedTime()" class="glass-btn w-full py-3.5 rounded-2xl text-sm flex items-center justify-center space-x-2">
+                <i class="ph-bold ph-check-circle text-lg"></i>
+                <span>계산된 기상 시각으로 알람 즉시 설정하기</span>
+            </button>
+        </section>
+
+        <!-- 2. SECOND SECTION: ROUTE & LIVE BUS CALCULATOR -->
+        <section class="glass-panel rounded-3xl p-6 sm:p-8 space-y-5">
+            <div class="flex items-center space-x-3 border-b border-white/30 pb-4">
+                <div class="w-11 h-11 rounded-2xl bg-white/30 border border-white/80 flex items-center justify-center text-sky-300 shadow-lg text-2xl">
+                    <i class="ph-bold ph-bus"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg sm:text-xl font-black text-white drop-shadow">2. 경로 & 버스시간 계산기</h2>
+                    <p class="text-xs text-white/75 font-medium">출발지와 도착지 간 가는데 얼마나 걸리는지 및 버스 도착을 조회합니다.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">출발지</label>
+                    <div class="relative">
+                        <i class="ph-bold ph-map-pin text-amber-300 absolute left-4 top-3.5 text-base"></i>
+                        <input type="text" id="start-node" value="우리집 정류장" class="glass-input w-full pl-11 pr-4 py-3 rounded-2xl text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">도착지</label>
+                    <div class="relative">
+                        <i class="ph-bold ph-flag-checkered text-rose-300 absolute left-4 top-3.5 text-base"></i>
+                        <input type="text" id="end-node" value="강남역" class="glass-input w-full pl-11 pr-4 py-3 rounded-2xl text-sm">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">이용 버스 번호</label>
+                    <input type="text" id="bus-no-input" value="146번" class="glass-input w-full px-4 py-2.5 rounded-2xl text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">버스 탑승 소요시간 (분)</label>
+                    <input type="number" id="bus-duration-input" value="35" min="1" oninput="updateRouteTimes()" class="glass-input w-full px-4 py-2.5 rounded-2xl text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-white/90 mb-1.5">정류장 도보 시간 (분)</label>
+                    <input type="number" id="walk-duration-input" value="10" min="0" oninput="updateRouteTimes()" class="glass-input w-full px-4 py-2.5 rounded-2xl text-sm">
+                </div>
+            </div>
+
+            <!-- GLASS BUTTON: REFRESH BUS TIME -->
+            <button onclick="refreshBusSim()" class="glass-btn w-full py-3.5 rounded-2xl text-sm flex items-center justify-center space-x-2">
+                <i class="ph-bold ph-arrows-clockwise text-lg"></i>
+                <span>실시간 버스 도착 정보 조회하기</span>
+            </button>
+
+            <!-- LIVE BUS DISPLAY -->
+            <div class="bg-black/15 border border-white/50 rounded-2xl p-4 space-y-3">
+                <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="route-bus-title" class="text-xs font-extrabold text-white">146번 버스 도착 정보</span>
+                    </div>
+                    <span id="route-total-summary" class="text-xs font-black text-amber-300">총 45분 소요 (도보 10분 + 버스 35분)</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white/20 border border-white/60 rounded-2xl p-3 text-center">
+                        <div class="text-[11px] font-bold text-white/70 mb-0.5">이번 도착 버스</div>
+                        <div id="eta-first" class="text-xl sm:text-2xl font-black text-emerald-300 drop-shadow">4분 후</div>
+                    </div>
+                    <div class="bg-white/20 border border-white/60 rounded-2xl p-3 text-center">
+                        <div class="text-[11px] font-bold text-white/70 mb-0.5">다음 도착 버스</div>
+                        <div id="eta-second" class="text-xl sm:text-2xl font-black text-white/90 drop-shadow">12분 후</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. THIRD SECTION: ALARM & BUS NOTIFICATION -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            <!-- ALARM SETTING CARD -->
+            <section class="glass-panel rounded-3xl p-6 space-y-4">
+                <div class="flex items-center space-x-3 border-b border-white/30 pb-3">
+                    <div class="w-9 h-9 rounded-2xl bg-white/30 border border-white/80 flex items-center justify-center text-rose-300 shadow-md text-lg">
+                        <i class="ph-bold ph-siren"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-black text-white drop-shadow">3. 기상 미션 알람</h2>
+                        <p class="text-[11px] text-white/75 font-medium">사이렌 및 수학 퀴즈 기상 모달</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-white/90 mb-1">알람 설정 시각</label>
+                        <input type="time" id="alarm-time-input" value="07:45" class="glass-input w-full px-3.5 py-2.5 rounded-2xl text-base">
+                    </div>
+
+                    <!-- GLASS BUTTON ACCENT -->
+                    <button id="alarm-toggle-btn" onclick="toggleAlarm()" class="glass-btn-accent w-full py-3.5 rounded-2xl text-xs flex items-center justify-center space-x-2">
+                        <i class="ph-bold ph-bell-ringing text-lg"></i>
+                        <span id="alarm-btn-label">기상 알람 예약하기</span>
+                    </button>
+
+                    <div id="alarm-status-box" class="hidden p-2.5 bg-emerald-500/30 border border-emerald-300/60 rounded-2xl text-[11px] text-white text-center font-bold">
+                        <i class="ph-bold ph-check-circle"></i> <span id="alarm-status-text">07:45 알람 예약됨</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BUS 5-10 MIN NOTIFICATION CARD -->
+            <section class="glass-panel rounded-3xl p-6 space-y-4">
+                <div class="flex items-center space-x-3 border-b border-white/30 pb-3">
+                    <div class="w-9 h-9 rounded-2xl bg-white/30 border border-white/80 flex items-center justify-center text-amber-300 shadow-md text-lg">
+                        <i class="ph-bold ph-broadcast"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-black text-white drop-shadow">4. 버스 5~10분 전 알림</h2>
+                        <p class="text-[11px] text-white/75 font-medium">출발 전 푸시 및 브라우저 경보</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <p class="text-xs text-white/80 leading-relaxed font-medium bg-black/10 p-3 rounded-2xl border border-white/20">
+                        버스가 도착하기 5분/10분 전에 맞춰 타이머 경보 알림을 전송합니다.
+                    </p>
+
+                    <!-- GLASS BUTTON -->
+                    <button id="bus-alert-btn" onclick="toggleBusAlertNotification()" class="glass-btn w-full py-3.5 rounded-2xl text-xs flex items-center justify-center space-x-2">
+                        <i class="ph-bold ph-bell-simple-ringing text-lg"></i>
+                        <span id="bus-alert-btn-text">버스 5~10분 전 알림 켜기</span>
+                    </button>
+                </div>
+            </section>
+
         </div>
 
-        <!-- 2. 돌발 반응속도 테스트 (생존 확인) -->
-        <div class="card">
-            <h2>⏱️ 민서 살아있니? (돌발 버튼)</h2>
-            <p>버튼이 뜨면 제한시간 5초 안에 클릭하세요!</p>
-            <div id="quick-click-area">
-                <button id="click-btn" onclick="responseSuccess()" style="display: none; background-color: var(--success-color);">
-                    ⚡ 지금 눌러!!! ⚡
+    </div>
+
+    <!-- ALARM MODAL OVERLAY -->
+    <div id="alarm-modal" class="fixed inset-0 z-50 hidden backdrop-blur-2xl bg-black/40 flex items-center justify-center p-4">
+        <div class="glass-panel max-w-sm w-full rounded-3xl p-6 sm:p-8 text-center border-2 border-white/80 shadow-2xl relative">
+            <div class="w-16 h-16 mx-auto mb-3 bg-rose-500/40 border-2 border-white rounded-3xl flex items-center justify-center text-rose-200 text-3xl animate-bounce shadow-lg">
+                <i class="ph-bold ph-siren"></i>
+            </div>
+            
+            <h2 class="text-2xl font-black text-white mb-1 drop-shadow">🚨 일어나세요! 지각입니다!</h2>
+            <p class="text-xs text-white/80 mb-5 font-medium">사이렌을 끄려면 아래 수학 문제를 맞추세요.</p>
+
+            <div class="bg-black/20 border border-white/40 rounded-2xl p-4 mb-4">
+                <span class="text-xs font-extrabold text-amber-300 block mb-1">기상 검증 퀴즈</span>
+                <div id="quiz-question-text" class="text-3xl font-black tracking-wider text-white mb-3">12 + 35 = ?</div>
+                
+                <input type="number" id="quiz-answer-input" placeholder="정답 입력" class="glass-input w-full text-center py-2.5 text-xl font-black rounded-2xl mb-3">
+                
+                <button onclick="checkQuizAnswer()" class="glass-btn-accent w-full py-3 rounded-2xl text-xs font-black">
+                    정답 제출 & 사이렌 끄기
                 </button>
             </div>
-            <p id="click-status">잠시 후 기습 테스트가 시작됩니다...</p>
-        </div>
 
-        <!-- 3. 뇌 자극 번개 암산 -->
-        <div class="card">
-            <h2>🧠 잠 깨는 번개 암산</h2>
-            <p id="math-problem">문제를 생성 중...</p>
-            <input type="number" id="math-answer" placeholder="정답 입력">
-            <br>
-            <button onclick="checkMathAnswer()" style="background-color: var(--warning-color); color: black;">정답 제출</button>
-            <p id="math-result"></p>
-        </div>
-
-        <!-- 4. 25분 집중 + 스트레칭 타이머 -->
-        <div class="card">
-            <h2>⏳ 25분 집중 타이머 (뽀모도로)</h2>
-            <div class="timer-display" id="timer">25:00</div>
-            <br>
-            <button onclick="startTimer()" style="background-color: var(--success-color);">시작</button>
-            <button onclick="resetTimer()" style="background-color: #57606f;">리셋</button>
+            <p id="quiz-feedback-text" class="text-xs font-bold text-rose-300 h-4"></p>
         </div>
     </div>
 
     <script>
-        // --- Web Audio API를 이용한 사이렌 소리 생성 ---
-        let audioCtx;
-        let oscillator;
-        let isAlerting = false;
+        let alarmTimeout = null;
+        let busAlertTimeout = null;
+        let isAlarmSet = false;
+        let isBusAlertActive = false;
+        
+        let audioCtx = null;
+        let sirenOscillator = null;
+        let sirenGain = null;
+        let sirenInterval = null;
+        let mathAnswer = 0;
 
-        function startSiren() {
-            if (isAlerting) return;
-            isAlerting = true;
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+        window.onload = function() {
+            calculateTimes();
+            refreshBusSim();
 
-            oscillator.type = 'sawtooth';
-            oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
-            
-            // 사이렌처럼 주파수 오르내리기
-            let high = false;
-            setInterval(() => {
-                if (isAlerting && audioCtx) {
-                    oscillator.frequency.setValueAtTime(high ? 880 : 440, audioCtx.currentTime);
-                    high = !high;
-                }
-            }, 300);
+            if ("Notification" in window && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+        };
 
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.start();
+        // 1. 역산 기상시간 계산 logic
+        function calculateTimes() {
+            const targetStr = document.getElementById('target-time').value;
+            const travelMins = parseInt(document.getElementById('travel-time').value) || 0;
+            const prepMins = parseInt(document.getElementById('prep-time').value) || 0;
+
+            if (!targetStr) return;
+
+            const [hours, minutes] = targetStr.split(':').map(Number);
+            const targetDate = new Date();
+            targetDate.setHours(hours, minutes, 0, 0);
+
+            // 집에서 나가는 시각 = 목표시각 - 이동시간
+            const leaveDate = new Date(targetDate.getTime() - travelMins * 60000);
+            // 기상 시각 = 나가는시각 - 준비시간
+            const wakeUpDate = new Date(leaveDate.getTime() - prepMins * 60000);
+
+            const format = (d) => {
+                const h = String(d.getHours()).padStart(2, '0');
+                const m = String(d.getMinutes()).padStart(2, '0');
+                return `${h}:${m}`;
+            };
+
+            document.getElementById('leave-time-display').innerText = format(leaveDate);
+            document.getElementById('wakeup-time-display').innerText = format(wakeUpDate);
         }
 
-        function stopSiren() {
-            if (oscillator) {
-                oscillator.stop();
-                oscillator.disconnect();
+        function updateRouteTimes() {
+            const busMins = parseInt(document.getElementById('bus-duration-input').value) || 0;
+            const walkMins = parseInt(document.getElementById('walk-duration-input').value) || 0;
+            const total = busMins + walkMins;
+
+            document.getElementById('travel-time').value = total;
+            document.getElementById('route-total-summary').innerText = `총 ${total}분 소요 (도보 ${walkMins}분 + 버스 ${busMins}분)`;
+            calculateTimes();
+        }
+
+        function syncAlarmWithCalculatedTime() {
+            calculateTimes();
+            const recommendedWakeTime = document.getElementById('wakeup-time-display').innerText;
+            document.getElementById('alarm-time-input').value = recommendedWakeTime;
+            showGlassToast('추천 기상 시각(' + recommendedWakeTime + ')이 알람 입력에 반영되었습니다.');
+        }
+
+        // 2. 경로 및 버스시간 조동 logic
+        function refreshBusSim() {
+            const busNo = document.getElementById('bus-no-input').value || '146번';
+            document.getElementById('route-bus-title').innerText = `${busNo} 버스 도착 정보`;
+
+            updateRouteTimes();
+
+            const eta1 = Math.floor(Math.random() * 4) + 3;
+            const eta2 = eta1 + Math.floor(Math.random() * 6) + 6;
+
+            document.getElementById('eta-first').innerText = `${eta1}분 후`;
+            document.getElementById('eta-second').innerText = `${eta2}분 후`;
+
+            if (isBusAlertActive) {
+                setupBusAlertTimer(eta1);
+            }
+        }
+
+        // 버스 5~10분 전 알림
+        function toggleBusAlertNotification() {
+            isBusAlertActive = !isBusAlertActive;
+            const btnText = document.getElementById('bus-alert-btn-text');
+
+            if (isBusAlertActive) {
+                btnText.innerText = '버스 알림 활성화됨 (끄기)';
+                const etaText = document.getElementById('eta-first').innerText;
+                const eta = parseInt(etaText) || 5;
+                setupBusAlertTimer(eta);
+                showGlassToast('버스 도착 5~10분 전 알림이 설정되었습니다.');
+            } else {
+                btnText.innerText = '버스 5~10분 전 알림 켜기';
+                if (busAlertTimeout) clearTimeout(busAlertTimeout);
+                showGlassToast('버스 알림 설정이 해제되었습니다.');
+            }
+        }
+
+        function setupBusAlertTimer(eta) {
+            if (busAlertTimeout) clearTimeout(busAlertTimeout);
+            
+            // ETA 5분전 타이머 설정
+            const minsToWait = eta > 5 ? eta - 5 : 1;
+            busAlertTimeout = setTimeout(() => {
+                sendNotification('🚌 버스 도착 임박!', `버스가 약 ${eta}분 후 도착합니다. 지금 출발하세요!`);
+            }, minsToWait * 60000);
+        }
+
+        function sendNotification(title, body) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(title, { body });
+            } else {
+                alert(`${title}\n${body}`);
+            }
+        }
+
+        // 3. 기상 알람 및 사이렌
+        function toggleAlarm() {
+            if (isAlarmSet) {
+                if (alarmTimeout) clearTimeout(alarmTimeout);
+                isAlarmSet = false;
+                document.getElementById('alarm-btn-label').innerText = '기상 알람 예약하기';
+                document.getElementById('alarm-status-box').classList.add('hidden');
+                showGlassToast('기상 알람이 취소되었습니다.');
+            } else {
+                const timeStr = document.getElementById('alarm-time-input').value;
+                if (!timeStr) return;
+
+                const [ah, am] = timeStr.split(':').map(Number);
+                const now = new Date();
+                let alarmDate = new Date();
+                alarmDate.setHours(ah, am, 0, 0);
+
+                if (alarmDate <= now) {
+                    alarmDate.setDate(alarmDate.getDate() + 1);
+                }
+
+                const diff = alarmDate.getTime() - now.getTime();
+                alarmTimeout = setTimeout(triggerAlarmSiren, diff);
+
+                isAlarmSet = true;
+                document.getElementById('alarm-btn-label').innerText = '알람 예약 해제';
+                document.getElementById('alarm-status-text').innerText = `${timeStr} 알람 설정 완료 (${Math.round(diff/60000)}분 후)`;
+                document.getElementById('alarm-status-box').classList.remove('hidden');
+            }
+        }
+
+        function triggerAlarmSiren() {
+            generateQuiz();
+            document.getElementById('alarm-modal').classList.remove('hidden');
+            startAudioSiren();
+        }
+
+        function startAudioSiren() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                sirenOscillator = audioCtx.createOscillator();
+                sirenGain = audioCtx.createGain();
+
+                sirenOscillator.type = 'sawtooth';
+                sirenOscillator.frequency.setValueAtTime(450, audioCtx.currentTime);
+                sirenGain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+
+                sirenOscillator.connect(sirenGain);
+                sirenGain.connect(audioCtx.destination);
+                sirenOscillator.start();
+
+                let high = false;
+                sirenInterval = setInterval(() => {
+                    if (sirenOscillator && audioCtx) {
+                        const freq = high ? 450 : 850;
+                        sirenOscillator.frequency.exponentialRampToValueAtTime(freq, audioCtx.currentTime + 0.15);
+                        high = !high;
+                    }
+                }, 220);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
+        function stopAudioSiren() {
+            if (sirenInterval) clearInterval(sirenInterval);
+            if (sirenOscillator) {
+                try { sirenOscillator.stop(); sirenOscillator.disconnect(); } catch(e){}
             }
             if (audioCtx) {
-                audioCtx.close();
+                try { audioCtx.close(); } catch(e){}
             }
-            isAlerting = false;
         }
 
-        // --- 1. 긴급 비상 버튼 기능 ---
-        function triggerEmergency() {
-            document.body.classList.add('alert-mode');
-            startSiren();
-            alert("민서야!!! 차렷!!! 눈 떠!!!");
+        // 퀴즈 검증
+        function generateQuiz() {
+            const n1 = Math.floor(Math.random() * 50) + 15;
+            const n2 = Math.floor(Math.random() * 50) + 15;
+            mathAnswer = n1 + n2;
+            document.getElementById('quiz-question-text').innerText = `${n1} + ${n2} = ?`;
+            document.getElementById('quiz-answer-input').value = '';
+            document.getElementById('quiz-feedback-text').innerText = '';
         }
 
-        function stopEmergency() {
-            document.body.classList.remove('alert-mode');
-            stopSiren();
-        }
+        function checkQuizAnswer() {
+            const userAns = parseInt(document.getElementById('quiz-answer-input').value);
+            if (userAns === mathAnswer) {
+                stopAudioSiren();
+                document.getElementById('alarm-modal').classList.add('hidden');
+                
+                isAlarmSet = false;
+                document.getElementById('alarm-btn-label').innerText = '기상 알람 예약하기';
+                document.getElementById('alarm-status-box').classList.add('hidden');
 
-        // --- 2. 기습 반응속도 테스트 ---
-        let responseTimer;
-        function scheduleQuickClick() {
-            const randomTime = Math.floor(Math.random() * 10000) + 5000; // 5초~15초 사이
-            setTimeout(() => {
-                const btn = document.getElementById('click-btn');
-                const status = document.getElementById('click-status');
-                btn.style.display = 'inline-block';
-                status.innerText = '⚡⚡ 빨리 누르세요!! (제한시간 5초) ⚡⚡';
-                status.style.color = 'red';
-
-                responseTimer = setTimeout(() => {
-                    if (btn.style.display !== 'none') {
-                        triggerEmergency();
-                        status.innerText = '❌ 민서 졸았구나! 경고 사이렌 발동!';
-                        btn.style.display = 'none';
-                        setTimeout(scheduleQuickClick, 10000);
-                    }
-                }, 5000);
-            }, randomTime);
-        }
-
-        function responseSuccess() {
-            clearTimeout(responseTimer);
-            document.getElementById('click-btn').style.display = 'none';
-            const status = document.getElementById('click-status');
-            status.innerText = '✅ 생존 확인! 훌륭합니다 민서님.';
-            status.style.color = 'var(--success-color)';
-            scheduleQuickClick();
-        }
-
-        // --- 3. 잠 깨는 암산 기능 ---
-        let num1, num2, correctAnswer;
-        function generateMathProblem() {
-            num1 = Math.floor(Math.random() * 89) + 11; // 두자리 수
-            num2 = Math.floor(Math.random() * 89) + 11;
-            correctAnswer = num1 * num2; // 두자리수 곱셈으로 뇌 자극
-            document.getElementById('math-problem').innerText = `${num1} × ${num2} = ?`;
-        }
-
-        function checkMathAnswer() {
-            const userAns = parseInt(document.getElementById('math-answer').value);
-            const resultElem = document.getElementById('math-result');
-            if (userAns === correctAnswer) {
-                resultElem.innerText = '⭕ 정답! 뇌가 깨어났습니다.';
-                resultElem.style.color = 'var(--success-color)';
-                document.getElementById('math-answer').value = '';
-                generateMathProblem();
+                showGlassToast('🎉 정답입니다! 기상 미션 성공.');
             } else {
-                resultElem.innerText = '❌ 틀렸습니다! 다시 계산하세요!';
-                resultElem.style.color = 'var(--accent-color)';
+                document.getElementById('quiz-feedback-text').innerText = '오답입니다! 정신 차리고 다시 푸세요.';
+                generateQuiz();
             }
         }
 
-        // --- 4. 타이머 기능 ---
-        let timeLeft = 25 * 60;
-        let timerInterval;
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('timer').innerText = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        function showGlassToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 left-1/2 transform -translate-x-1/2 glass-panel bg-white/30 backdrop-blur-xl px-5 py-3 rounded-2xl text-xs font-black text-white shadow-2xl z-50 border border-white/80';
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2600);
         }
-
-        function startTimer() {
-            if (timerInterval) return;
-            timerInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    updateTimerDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    triggerEmergency();
-                    alert("25분 끝! 민서야 일어나서 기지개 켜자!");
-                }
-            }, 1000);
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            timeLeft = 25 * 60;
-            updateTimerDisplay();
-        }
-
-        // 페이지 로드 시 초기화
-        window.onload = () => {
-            generateMathProblem();
-            scheduleQuickClick();
-        };
     </script>
 </body>
-</html>
+</html> 
